@@ -28,6 +28,9 @@ function FlyToMarker({ position, zoom }) {
 }
 
 export default function App() {
+  // base URL for fetches ('' locally, or your GitHub Pages URL in production)
+  const base = process.env.PUBLIC_URL || '';
+
   // your five city markers
   const cities = [
     { id: 'copenhagen', name: 'Copenhagen', coords: [55.6761, 12.5683], zoom: 12 },
@@ -44,49 +47,38 @@ export default function App() {
   // state for always-on Copenhagen boroughs
   const [boroughsFeature, setBoroughsFeature] = useState(null);
 
-  // — fetch selected Copenhagen boroughs from bydele.json on mount —
+  // — fetch Copenhagen boroughs on mount —
   useEffect(() => {
     const names = [
-      'Indre By',
-      'Østerbro',
-      'Nørrebro',
-      'Vesterbro-Kongens Enghave',
-      'Valby',
-      'Vanløse',
-      'Brønshøj-Husum',
-      'Bispebjerg',
-      'Amager Øst',
-      'Amager Vest'
+      'Indre By', 'Østerbro', 'Nørrebro', 'Vesterbro-Kongens Enghave',
+      'Valby', 'Vanløse', 'Brønshøj-Husum', 'Bispebjerg',
+      'Amager Øst', 'Amager Vest', 'Dyrehaven'
     ];
 
-    fetch('/geojson/bydele.json')
+    fetch(`${base}/geojson/bydele.json`)
       .then(res => res.json())
       .then((fc) => {
         const features = fc.features.filter(f => {
           const name = f.properties.navn || f.properties.name;
           return names.includes(name);
         });
-
         if (features.length) {
-          setBoroughsFeature({
-            type: 'FeatureCollection',
-            features
-          });
+          setBoroughsFeature({ type: 'FeatureCollection', features });
         } else {
           console.warn('No matching boroughs found in bydele.json');
         }
       })
       .catch(err => console.error('Error loading bydele.json:', err));
-  }, []);
+  }, [base]);
 
   // — fetch per-city GeoJSON when a city marker is clicked —
   useEffect(() => {
     if (!selectedCity) return;
-    fetch(`/geojson/${selectedCity.id}.json`)
+    fetch(`${base}/geojson/${selectedCity.id}.json`)
       .then(res => res.json())
       .then(setCityGeoJson)
       .catch(err => console.error('Failed loading city GeoJSON:', err));
-  }, [selectedCity]);
+  }, [base, selectedCity]);
 
   return (
     <MapContainer
@@ -99,15 +91,10 @@ export default function App() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {/** Always-on borough polygons **/}
       {boroughsFeature && (
         <GeoJSON
           data={boroughsFeature}
-          style={() => ({
-            color: '#0066cc',
-            weight: 2,
-            fillOpacity: 0.1
-          })}
+          style={() => ({ color: '#0066cc', weight: 2, fillOpacity: 0.1 })}
           onEachFeature={(feature, layer) => {
             const name = feature.properties.navn || feature.properties.name;
             layer.bindTooltip(name, { sticky: true });
@@ -119,7 +106,6 @@ export default function App() {
         />
       )}
 
-      {/** City markers **/}
       {cities.map(city => (
         <Marker
           key={city.id}
@@ -128,23 +114,14 @@ export default function App() {
         />
       ))}
 
-      {/** Fly-to effect when a city’s selected **/}
       {selectedCity && (
-        <FlyToMarker
-          position={selectedCity.coords}
-          zoom={selectedCity.zoom}
-        />
+        <FlyToMarker position={selectedCity.coords} zoom={selectedCity.zoom} />
       )}
 
-      {/** On-demand city-area polygons **/}
       {cityGeoJson && (
         <GeoJSON
           data={cityGeoJson}
-          style={() => ({
-            color: '#444',
-            weight: 1,
-            fillOpacity: 0.2
-          })}
+          style={() => ({ color: '#444', weight: 1, fillOpacity: 0.2 })}
           onEachFeature={(feature, layer) => {
             const name = feature.properties.navn || feature.properties.name;
             layer.bindTooltip(name, { sticky: true });
