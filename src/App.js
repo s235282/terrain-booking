@@ -32,13 +32,29 @@ export default function App() {
   const base = process.env.PUBLIC_URL || '';
 
   // your five city markers
-  const cities = [
-    { id: 'copenhagen', name: 'Copenhagen', coords: [55.6761, 12.5683], zoom: 12 },
-    { id: 'aarhus',     name: 'Aarhus',     coords: [56.1629, 10.2039], zoom: 12 },
-    { id: 'odense',     name: 'Odense',     coords: [55.4038, 10.4024], zoom: 12 },
-    { id: 'aalborg',    name: 'Aalborg',    coords: [57.0488,  9.9217], zoom: 12 },
-    { id: 'esbjerg',    name: 'Esbjerg',    coords: [55.4765,  8.4594], zoom: 12 },
-  ];
+const cities = [
+  { id: 'aalborg',        name: 'Aalborg',        coords: [57.0467,  9.9359],  zoom: 12 },
+  { id: 'allinge',       name: 'Allinge',       coords: [55.2778, 14.8014],  zoom: 12 },
+  { id: 'fredericia',    name: 'Fredericia',    coords: [55.5667,  9.7500],  zoom: 12 },
+  { id: 'frederikshavn', name: 'Frederikshavn', coords: [57.4410, 10.5340],  zoom: 12 },
+  { id: 'haderslev',     name: 'Haderslev',     coords: [55.2500,  9.5000],  zoom: 12 },
+  { id: 'høvelte',       name: 'Høvelte',       coords: [55.8567, 12.3956],  zoom: 12 },
+  { id: 'herning',       name: 'Herning',       coords: [56.1386,  8.9897],  zoom: 12 },
+  { id: 'holstebro',     name: 'Holstebro',     coords: [56.3667,  8.6167],  zoom: 12 },
+  { id: 'næstved',       name: 'Næstved',       coords: [55.2333, 11.7667],  zoom: 12 },
+  { id: 'nørresundby',   name: 'Nørresundby',   coords: [57.0667,  9.9167],  zoom: 12 },
+  { id: 'oksbøl',        name: 'Oksbøl',        coords: [55.6258,  8.2792],  zoom: 12 },
+  { id: 'rønne',         name: 'Rønne',         coords: [55.0986, 14.7014],  zoom: 12 },
+  { id: 'slagelse',      name: 'Slagelse',      coords: [55.4049, 11.3531],  zoom: 12 },
+  { id: 'skive',         name: 'Skive',         coords: [56.5667,  9.0333],  zoom: 12 },
+  { id: 'skrydstrup',    name: 'Skrydstrup',    coords: [55.2422,  9.2595],  zoom: 12 },
+  { id: 'skalstrup',     name: 'Skalstrup',     coords: [55.6500, 12.0833],  zoom: 12 },
+  { id: 'thisted',       name: 'Thisted',       coords: [56.9569,  8.6944],  zoom: 12 },
+  { id: 'varde',         name: 'Varde',         coords: [55.6211,  8.4806],  zoom: 12 },
+  { id: 'vordingborg',   name: 'Vordingborg',   coords: [55.0080, 11.9110],  zoom: 12 },
+  { id: 'karup',         name: 'Karup',         coords: [56.3086,  9.1683],  zoom: 12 },
+];
+
 
   // state for dynamic, per-city polygons
   const [selectedCity, setSelectedCity] = useState(null);
@@ -50,9 +66,7 @@ export default function App() {
   // — fetch Copenhagen boroughs on mount —
   useEffect(() => {
     const names = [
-      'Indre By', 'Østerbro', 'Nørrebro', 'Vesterbro-Kongens Enghave',
-      'Valby', 'Vanløse', 'Brønshøj-Husum', 'Bispebjerg',
-      'Amager Øst', 'Amager Vest', 'Dyrehaven'
+      "Indgang Vest", "Indgang Øst", "Stampen", "Bøllemosen"
     ];
 
     fetch(`${base}/geojson/bydele.json`)
