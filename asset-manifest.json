@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/terrain-booking/static/css/main.323d7611.css",
-    "main.js": "/terrain-booking/static/js/main.4b874d68.js",
+    "main.css": "/terrain-booking/static/css/main.21a6599d.css",
+    "main.js": "/terrain-booking/static/js/main.3ffc712b.js",
     "static/js/453.8a5c51e5.chunk.js": "/terrain-booking/static/js/453.8a5c51e5.chunk.js",
     "index.html": "/terrain-booking/index.html",
-    "main.323d7611.css.map": "/terrain-booking/static/css/main.323d7611.css.map",
-    "main.4b874d68.js.map": "/terrain-booking/static/js/main.4b874d68.js.map",
+    "main.21a6599d.css.map": "/terrain-booking/static/css/main.21a6599d.css.map",
+    "main.3ffc712b.js.map": "/terrain-booking/static/js/main.3ffc712b.js.map",
     "453.8a5c51e5.chunk.js.map": "/terrain-booking/static/js/453.8a5c51e5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.323d7611.css",
-    "static/js/main.4b874d68.js"
+    "static/css/main.21a6599d.css",
+    "static/js/main.3ffc712b.js"
   ]
 }
